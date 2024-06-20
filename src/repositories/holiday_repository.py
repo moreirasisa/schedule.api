@@ -1,0 +1,19 @@
+from models.holiday import HolidayModel
+
+
+class HolidayRepository:
+    @staticmethod
+    async def create(db, holiday: HolidayModel):
+        holiday_dictionary = holiday.dict(by_alias=True)
+        holiday_dictionary["_id"] = str(holiday_dictionary["_id"])
+        result = db['holidays'].insert_one(holiday_dictionary)
+        holiday_dictionary['_id'] = str(result.inserted_id)
+        return holiday_dictionary
+    
+    @staticmethod
+    async def list_all(db):
+        return db['holidays'].find()
+    
+    @staticmethod
+    async def list_by_id(db, id: str):
+        return db['holidays'].find_onde(id)
