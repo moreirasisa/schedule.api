@@ -15,3 +15,7 @@ async def post(holiday: CreateHolidayDto, request: Request):
 @router.get("", response_model=List[HolidayViewModel])
 async def get(request: Request):
     return await HolidayService.list_all(request.app.database)
+
+@router.get("/{id}")
+async def get(id: str, request: Request):
+    return await HolidayService.list_by_id(request.app.database, id)

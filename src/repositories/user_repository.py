@@ -1,4 +1,4 @@
-from models.users import UserModel
+from models.users import UpdateUserModel, UserModel
 
 
 class UserRepository:
@@ -19,7 +19,7 @@ class UserRepository:
         return db['users'].find_onde(id)
     
     @staticmethod
-    async def update(db, user: UserModel, id: str):
+    async def update(db, user: UpdateUserModel, id: str):
         update_user = {k: v for k, v in user.dict(exclude_unset=True).items()}
         db['users'].update_one({"_id": id}, {"$set": update_user})
         user_to_update = db['users'].find_one({"_id": id})

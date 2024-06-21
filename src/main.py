@@ -5,6 +5,8 @@ from pymongo import MongoClient
 import uvicorn
 from routers.users import router as user_router
 from routers.holidays import router as holiday_router
+from routers.appointment_types import router as appointment_type_router
+from routers.appointments import router as appointment_router
 
 dotenv_path = os.path.join(os.path.dirname(__file__), '..', '.env')
 config = dotenv_values(dotenv_path)
@@ -16,6 +18,8 @@ if __name__ == "__main__":
     
 app.include_router(user_router, tags=['Users'], prefix="/api/v1/users")
 app.include_router(holiday_router, tags=['Holidays'], prefix="/api/v1/holidays")
+app.include_router(appointment_type_router, tags=['AppointmentTypes'], prefix="/api/v1/appointment/types")
+app.include_router(appointment_router, tags=['Appointments'], prefix="/api/v1/appointment")
 
 @app.on_event("startup")
 def startup_db_client():
