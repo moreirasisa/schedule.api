@@ -1,8 +1,10 @@
 import os
 from dotenv import dotenv_values
-from fastapi import FastAPI
+from fastapi import FastAPI, status
 from pymongo import MongoClient
 import uvicorn
+from exceptions.appointment_type_exceptions import AppointmentNotFoundException
+from exceptions.handlers.appointment_type_exception_handler import AppointmentTypeExceptionHandler
 from routers.users import router as user_router
 from routers.holidays import router as holiday_router
 from routers.appointment_types import router as appointment_type_router
@@ -20,6 +22,11 @@ app.include_router(user_router, tags=['Users'], prefix="/api/v1/users")
 app.include_router(holiday_router, tags=['Holidays'], prefix="/api/v1/holidays")
 app.include_router(appointment_type_router, tags=['AppointmentTypes'], prefix="/api/v1/appointment/types")
 app.include_router(appointment_router, tags=['Appointments'], prefix="/api/v1/appointment")
+
+app.add_exception_handler(
+    exc_class_or_status_code = AppointmentNotFoundException,
+    handler = AppointmentTypeExceptionHandler.create_exception_handler(status.HTTP_404_NOT_FOUND)
+)
 
 @app.on_event("startup")
 def startup_db_client():

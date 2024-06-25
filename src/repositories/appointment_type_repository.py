@@ -17,3 +17,7 @@ class AppointmentTypeRepository:
     @staticmethod
     async def list_by_id(db, id: str):
         return db['appointment-types'].find_one(id)
+    
+    @staticmethod
+    async def exists(db, id: str):
+        return db['appointment-types'].find_one({"_id": id})

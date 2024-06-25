@@ -4,9 +4,9 @@ from models.holiday import HolidayModel
 class HolidayRepository:
     @staticmethod
     async def create(db, holiday: HolidayModel):
-        holiday_dictionary = holiday.dict(by_alias=True)
+        holiday_dictionary = holiday.model_dump(by_alias=True)
         holiday_dictionary["_id"] = str(holiday_dictionary["_id"])
-        result = db['holidays'].insert_one(holiday_dictionary)
+        result = await db['holidays'].insert_one(holiday_dictionary)
         holiday_dictionary['_id'] = str(result.inserted_id)
         return holiday_dictionary
     
