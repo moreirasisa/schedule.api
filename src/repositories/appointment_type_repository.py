@@ -4,9 +4,9 @@ from models.appointment_type import AppointmentTypeModel
 class AppointmentTypeRepository:
     @staticmethod
     async def create(db, type: AppointmentTypeModel):
-        type_dictionary = type.dict(by_alias=True)
+        type_dictionary = type.model_dump(by_alias=True)
         type_dictionary["_id"] = str(type_dictionary["_id"])
-        result = db['appointment-types'].insert_one(type_dictionary)
+        result = await db['appointment-types'].insert_one(type_dictionary)
         type_dictionary['_id'] = str(result.inserted_id)
         return type_dictionary
     

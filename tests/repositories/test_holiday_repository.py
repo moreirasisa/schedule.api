@@ -30,8 +30,22 @@ async def holiday_mock():
     )
     
 @pytest.mark.asyncio
-async def test_create_holiday():
+async def test_create_holiday(db, holiday_mock):
     result = await HolidayRepository.create(db, holiday_mock)
     assert '_id' in result
     db_holiday = await db['holidays'].find_one({'_id': result['_id']})
     assert db_holiday is not None
+    
+@pytest.mark.asyncio
+async def test_list_all_holidays(db, holiday_mock):
+    holiday_mock = await HolidayRepository.create(db, holiday_mock)
+    result = await HolidayRepository.list_all(db)
+    holiday_list = [holiday async for holiday in result]
+    assert len(holiday_list) == 1
+    
+@pytest.mark.asyncio
+async def test_list_holiday_by_id(db, holiday_mock):
+    await HolidayRepository.create(db, holiday_mock)
+    result = await HolidayRepository.list_by_id(db, holiday_mock.id)
+    result_data = await result
+    assert result_data is not None

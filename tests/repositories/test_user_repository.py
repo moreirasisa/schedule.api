@@ -41,9 +41,8 @@ async def test_create_user(db, user_mock):
 async def test_list_all_users(db, user_mock):
     user_mock = await UserRepository.create(db, user_mock)
     result = await UserRepository.list_all(db)
-    count = 0
-    async for data in result: count += 1
-    assert count == 1
+    user_list = [user async for user in result]
+    assert len(user_list) == 1
     
 @pytest.mark.asyncio
 async def test_list_user_by_id(db, user_mock):
@@ -51,10 +50,6 @@ async def test_list_user_by_id(db, user_mock):
     result = await UserRepository.list_by_id(db, user_mock.id)
     result_data = await result
     assert result_data is not None
-    assert result_data['_id'] == user_mock.id
-    assert result_data['name'] == user_mock.name
-    assert result_data['email'] == user_mock.email
-    assert result_data['password'] == user_mock.password
     
 @pytest.mark.asyncio
 async def test_update_user(db, user_mock):

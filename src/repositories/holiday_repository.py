@@ -16,4 +16,4 @@ class HolidayRepository:
     
     @staticmethod
     async def list_by_id(db, id: str):
-        return db['holidays'].find_onde(id)
+        return db['holidays'].find_one(id)
