@@ -5,8 +5,8 @@ from pydantic import BaseModel
 class AppointmentViewModel(BaseModel):
     name: str
     date: datetime
-    startTime: time
-    endTime: time
+    startTime: datetime
+    endTime: datetime
     typeId: str
     userId: str
     address: str

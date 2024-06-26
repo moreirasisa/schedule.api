@@ -1,4 +1,5 @@
-from datetime import datetime, time
+from datetime import datetime
+from typing import Optional
 import uuid
 from pydantic import BaseModel, Field
 
@@ -7,17 +8,16 @@ class AppointmentModel(BaseModel):
     id: str = Field(default_factory=lambda: str(uuid.uuid4()), alias='_id')
     name: str
     date: datetime
-    startTime: time
-    endTime: time
+    startTime: datetime
+    endTime: datetime
     typeId: str
     userId: str
     address: str
     
 class UpdateAppointmentModel(BaseModel):
-    name: str
-    date: datetime
-    startTime: time
-    endTime: time
-    typeId: str
-    userId: str
-    address: str
+    name: Optional[str] = None
+    date: Optional[datetime] = None
+    startTime: Optional[datetime] = None
+    endTime: Optional[datetime] = None
+    typeId: Optional[str] = None
+    address: Optional[str] = None

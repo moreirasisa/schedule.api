@@ -46,7 +46,6 @@ class AppointmentService:
             startTime = appointment_dto.startTime,
             endTime = appointment_dto.endTime,
             typeId = appointment_dto.typeId,
-            userId = appointment_dto.userId,
             address = appointment_dto.address
         )
         updated_appointment = await AppointmentRepository.update(db, update_appointment_model, id)
