@@ -1,6 +1,7 @@
 import os
 from dotenv import dotenv_values
 from fastapi import FastAPI, status
+from fastapi.middleware.cors import CORSMiddleware
 from pymongo import MongoClient
 import uvicorn
 from exceptions.appointment_type_exceptions import AppointmentNotFoundException
@@ -14,6 +15,18 @@ dotenv_path = os.path.join(os.path.dirname(__file__), '..', '.env')
 config = dotenv_values(dotenv_path)
 
 app = FastAPI()
+
+origins = [
+    "http://localhost:3000"
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"]
+)
 
 if __name__ == "__main__":
     uvicorn.run("main:app", host='localhost', port=5000, log_level="info")
