@@ -8,5 +8,4 @@ class AppointmentViewModel(BaseModel):
     startTime: datetime
     endTime: datetime
     typeId: str
-    userId: str
     address: str

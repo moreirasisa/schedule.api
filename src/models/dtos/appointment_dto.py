@@ -9,7 +9,6 @@ class CreateAppointmentDto(BaseModel):
     startTime: datetime
     endTime: datetime
     typeId: str
-    userId: str
     address: str
 
 class UpdateAppointmentDto(BaseModel):

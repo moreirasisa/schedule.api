@@ -11,7 +11,6 @@ class AppointmentModel(BaseModel):
     startTime: datetime
     endTime: datetime
     typeId: str
-    userId: str
     address: str
     
 class UpdateAppointmentModel(BaseModel):
