@@ -10,8 +10,8 @@ from repositories.appointment_type_repository import AppointmentTypeRepository
 class AppointmentService:
     @staticmethod
     async def create(db, appointment_dto: CreateAppointmentDto) -> AppointmentViewModel:
-        if not await AppointmentTypeRepository.exists(db, appointment_dto.typeId):
-            raise AppointmentNotFoundException()
+        # if not await AppointmentTypeRepository.exists(db, appointment_dto.typeId):
+        #     raise AppointmentNotFoundException()
         
         appointment_model = AppointmentModel(
             name = appointment_dto.name,
